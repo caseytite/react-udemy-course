@@ -9,7 +9,7 @@ const Header = (props) => {
         <HeaderCartButton />
       </header>
       <div className={classes["main-image"]}>
-        <img src="./images/meals.jpeg" />
+        <img src="./images/meals.jpeg" alt="header" />
       </div>
     </>
   );
