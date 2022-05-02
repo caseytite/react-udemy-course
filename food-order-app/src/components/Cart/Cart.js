@@ -1,8 +1,7 @@
 import classes from "./Cart.module.css";
 import Modal from "../UI/Modal";
 
-const Cart = (props) => {
-  const { closeCartHandler } = props;
+const Cart = ({ closeCartHandler }) => {
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {[{ id: "1", name: "Pizza", amount: "10", price: "4.99" }].map(

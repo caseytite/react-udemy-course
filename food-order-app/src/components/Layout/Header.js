@@ -1,8 +1,7 @@
 import classes from "./Header.module.css";
 import HeaderCartButton from "./HeaderCartButton";
 
-const Header = (props) => {
-  const { showCartHandler } = props;
+const Header = ({ showCartHandler }) => {
   return (
     <>
       <header className={classes.header}>
