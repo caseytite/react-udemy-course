@@ -1,5 +1,5 @@
-import ReactDom from "react-dom";
 import classes from "./Modal.module.css";
+import { createPortal } from "react-dom";
 
 const Backdrop = (props) => {
   return <div onClick={props.onClick} className={classes.backdrop} />;
@@ -19,8 +19,8 @@ const Modal = (props) => {
   const { closeCartHandler } = props;
   return (
     <>
-      {ReactDom.createPortal(<Backdrop onClick={closeCartHandler} />, overlay)}
-      {ReactDom.createPortal(<Overlay>{props.children}</Overlay>, overlay)}
+      {createPortal(<Backdrop onClick={closeCartHandler} />, overlay)}
+      {createPortal(<Overlay>{props.children}</Overlay>, overlay)}
     </>
   );
 };
