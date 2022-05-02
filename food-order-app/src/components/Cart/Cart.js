@@ -8,8 +8,12 @@ const Cart = ({ closeCartHandler }) => {
   const context = useContext(CartContext);
   const cartAmount = `$${context.totalAmount.toFixed(2)}`;
 
-  const onAdd = (item) => {};
-  const onRemove = (id) => {};
+  const onAdd = (item) => {
+    context.addItem({ ...item, amount: 1 });
+  };
+  const onRemove = (id) => {
+    context.removeItem({ id, amount: 1 });
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
