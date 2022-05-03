@@ -1,38 +1,29 @@
-import { useState } from "react";
+import useHttp from "../../hooks/useHttp";
 
 import Section from "../UI/Section";
 import TaskForm from "./TaskForm";
 import { REACT_APP_FIREBASE_DATABASE_URL as DB } from "../../env";
 const NewTask = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendReq } = useHttp();
+
+  const createTask = (taskText, tasksData) => {
+    const generatedId = tasksData.name;
+    const createdTask = { id: generatedId, text: taskText };
+    props.onAddTask(createdTask);
+  };
 
   const enterTaskHandler = async (taskText) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(DB, {
+    sendReq(
+      {
+        url: DB,
         method: "POST",
-        body: JSON.stringify({ text: taskText }),
+        body: { text: taskText },
         headers: {
           "Content-Type": "application/json",
         },
-      });
-
-      if (!response.ok) {
-        throw new Error("Request failed!");
-      }
-
-      const data = await response.json();
-
-      const generatedId = data.name; // firebase-specific => "name" contains generated id
-      const createdTask = { id: generatedId, text: taskText };
-
-      props.onAddTask(createdTask);
-    } catch (err) {
-      setError(err.message || "Something went wrong!");
-    }
-    setIsLoading(false);
+      },
+      createTask.bind(null, taskText)
+    );
   };
 
   return (

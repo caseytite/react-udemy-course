@@ -8,22 +8,18 @@ import { REACT_APP_FIREBASE_DATABASE_URL as DB } from "./env";
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const handleData = (tasksOBJ) => {
-    const loadedTasks = [];
-    for (const key in tasksOBJ) {
-      loadedTasks.push({ key, id: key, text: tasksOBJ[key].text });
-    }
-    setTasks(loadedTasks);
-  };
-
-  const { isLoading, error, sendReq } = useHttp(
-    { url: DB, method: "GET" },
-    handleData
-  );
+  const { isLoading, error, sendReq } = useHttp();
 
   useEffect(() => {
-    sendReq();
-  }, []);
+    const handleData = (tasksOBJ) => {
+      const loadedTasks = [];
+      for (const key in tasksOBJ) {
+        loadedTasks.push({ key, id: key, text: tasksOBJ[key].text });
+      }
+      setTasks(loadedTasks);
+    };
+    sendReq({ url: DB, method: "GET" }, handleData);
+  }, [sendReq]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
