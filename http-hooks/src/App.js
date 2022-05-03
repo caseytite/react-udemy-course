@@ -1,41 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
+import useHttp from "./hooks/useHttp";
 import { REACT_APP_FIREBASE_DATABASE_URL as DB } from "./env";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [tasks, setTasks] = useState([]);
 
-  const fetchTasks = async (taskText) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(DB);
-
-      if (!response.ok) {
-        throw new Error("Request failed!");
-      }
-
-      const data = await response.json();
-
-      const loadedTasks = [];
-
-      for (const taskKey in data) {
-        loadedTasks.push({ id: taskKey, text: data[taskKey].text });
-      }
-
-      setTasks(loadedTasks);
-    } catch (err) {
-      setError(err.message || "Something went wrong!");
+  const handleData = (tasksOBJ) => {
+    const loadedTasks = [];
+    for (const key in tasksOBJ) {
+      loadedTasks.push({ key, id: key, text: tasksOBJ[key].text });
     }
-    setIsLoading(false);
+    setTasks(loadedTasks);
   };
 
+  const { isLoading, error, sendReq } = useHttp(
+    { url: DB, method: "GET" },
+    handleData
+  );
+
   useEffect(() => {
-    fetchTasks();
+    sendReq();
   }, []);
 
   const taskAddHandler = (task) => {
@@ -49,7 +36,7 @@ function App() {
         items={tasks}
         loading={isLoading}
         error={error}
-        onFetch={fetchTasks}
+        onFetch={sendReq}
       />
     </React.Fragment>
   );
