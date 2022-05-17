@@ -8,7 +8,15 @@ const ProductItem = (props) => {
   const dispatch = useDispatch();
 
   const onAddItem = () => {
-    dispatch(cartActions.addItem({ amount: price }));
+    dispatch(
+      cartActions.addItem({
+        title: "sure",
+        price,
+        description,
+        quantity: 1,
+        id: 1,
+      })
+    );
   };
   return (
     <li className={classes.item}>
