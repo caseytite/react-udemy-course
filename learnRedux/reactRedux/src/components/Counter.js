@@ -1,5 +1,6 @@
 // import { Component } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+// import { useSelector, useDispatch, connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { counterActions } from "../store/index";
 // connect is needed for the class based components
 // import { useSelector, useDispatch, connect } from "react-redux";
