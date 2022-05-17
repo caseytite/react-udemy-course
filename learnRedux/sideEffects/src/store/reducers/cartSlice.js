@@ -6,15 +6,18 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, action) {
       const newItem = action.payload;
+      console.log(newItem);
 
       const inCart = state.cart.find((item) => item.id === newItem.id);
-      state.total += newItem.price;
 
       if (!inCart) {
         ++state.items;
         state.cart.push(newItem);
+        console.log(state.cart);
       } else {
+        console.log(state.cart);
         inCart.quantity++;
+        inCart.totalCost += newItem.price;
       }
     },
     removeItem(state, action) {
