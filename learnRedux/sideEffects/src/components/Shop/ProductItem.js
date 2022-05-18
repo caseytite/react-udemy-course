@@ -6,14 +6,14 @@ import { cartActions } from "../../store";
 const ProductItem = (props) => {
   const { title, price, description, id } = props;
   const dispatch = useDispatch();
-  console.log(props);
+
   const onAddItem = () => {
     dispatch(
       cartActions.addItem({
-        id: id,
-        title: title,
-        price: price,
-        description: description,
+        id,
+        title,
+        price,
+        description,
         quantity: 1,
         totalCost: price,
       })
@@ -28,7 +28,7 @@ const ProductItem = (props) => {
         </header>
         <p>{description}</p>
         <div className={classes.actions}>
-          <button onClick={onAddItem}>Add to Cart</button>
+          <button onClick={onAddItem.bind()}>Add to Cart</button>
         </div>
       </Card>
     </li>
