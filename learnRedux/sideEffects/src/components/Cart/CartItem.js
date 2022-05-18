@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../../store";
 
 const CartItem = (props) => {
-  const { title, price } = props.item;
+  const { title, price, id, description, quantity, totalPrice } = props.item;
   const amount = useSelector((state) => state.cart.items);
   const total = useSelector((state) => state.cart.total);
   const dispatch = useDispatch();
@@ -17,14 +17,14 @@ const CartItem = (props) => {
       dispatch(cartActions.removeItem({ amount: price }));
     }
   };
-
+  console.log(price);
   return (
     <li className={classes.item}>
       <header>
         <h3>{title}</h3>
         <div className={classes.price}>
-          ${total.toFixed(2)}{" "}
-          <span className={classes.itemprice}>(${price.toFixed(2)})</span>
+          {/* ${total.toFixed(2)}{" "} */}
+          <span className={classes.itemprice}> {price}</span>
         </div>
       </header>
       <div className={classes.details}>
