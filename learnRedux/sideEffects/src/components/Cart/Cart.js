@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 
 const Cart = (props) => {
   const cart = useSelector((state) => state.cart.cart);
-  console.log(cart);
+
+  const totalItems = cart.reduce((acc, cur) => {
+    return acc + cur.quantity;
+  }, 0);
+
   const items = cart.map((item) => (
     <CartItem
       key={item.id}
@@ -18,9 +22,16 @@ const Cart = (props) => {
       }}
     />
   ));
+
   return (
     <Card className={classes.cart}>
-      <h2>Your Shopping Cart</h2>
+      <h2>{`You have ${
+        totalItems === 0
+          ? "no items in your cart."
+          : totalItems === 1
+          ? "one item in your cart."
+          : totalItems + " items in your cart."
+      }`}</h2>
       <ul>{items}</ul>
     </Card>
   );

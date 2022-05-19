@@ -1,18 +1,13 @@
 import classes from "./CartItem.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { cartActions } from "../../store";
 
 const CartItem = ({ item }) => {
   const { title, price, id, description, quantity, totalCost } = item;
 
-  const amount = useSelector((state) => state.cart.items);
-  const total = useSelector((state) => state.cart.total);
-  console.log(total);
   const dispatch = useDispatch();
-  console.log(price);
-  console.log(item);
+
   const onAdd = () => {
-    console.log(item);
     dispatch(
       cartActions.addItem({
         id,
@@ -26,7 +21,7 @@ const CartItem = ({ item }) => {
   const onRemove = () => {
     dispatch(cartActions.removeItem({ id }));
   };
-  console.log(price);
+
   return (
     <li className={classes.item}>
       <header>
