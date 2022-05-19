@@ -19,14 +19,17 @@ const cartSlice = createSlice({
       }
     },
     removeItem(state, action) {
-      const id = action.payload;
+      const id = action.payload.id;
+      console.log(action.payload);
       const item = state.cart.find((item) => item.id === id);
+      console.log(item);
 
-      --item.quantity;
+      state.items--;
       if (item.quantity === 1) {
         state.cart = state.cart.filter((item) => item.id !== id);
       } else {
         --item.quantity;
+        item.totalCost -= item.price;
       }
     },
   },
