@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../store";
 
 const CartItem = ({ item }) => {
-  const { title, price, id, description, quantity, totalCost } = item;
+  const { title, price, id, quantity, totalCost } = item;
 
   const dispatch = useDispatch();
 
@@ -11,9 +11,7 @@ const CartItem = ({ item }) => {
     dispatch(
       cartActions.addItem({
         id,
-        title,
         price,
-        description,
         quantity: 1,
       })
     );
