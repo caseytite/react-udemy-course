@@ -40,7 +40,7 @@ const CartItem = ({ item }) => {
       </header>
       <div className={classes.details}>
         <div className={classes.quantity}>
-          x <span>{amount}</span>
+          x <span>{quantity}</span>
         </div>
         <div className={classes.actions}>
           <button onClick={onRemove}>-</button>
